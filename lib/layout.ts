@@ -6,23 +6,44 @@ export const pageContainer =
 export const articleColumn = "mx-auto w-full max-w-3xl";
 
 /** Fixed navbar height (excludes safe-area; header adds inset separately) */
-export const headerBarHeight = "h-14 md:h-16";
+export const headerBarHeight = "h-14 lg:h-16";
 
 /** Spacer below fixed header (bar + safe-area) */
 export const headerSpacer =
-  "h-[calc(env(safe-area-inset-top)+3.5rem)] shrink-0 md:h-[calc(env(safe-area-inset-top)+4rem)]";
+  "h-[calc(env(safe-area-inset-top)+3.5rem)] shrink-0 lg:h-[calc(env(safe-area-inset-top)+4rem)]";
 
 /** Top edge of mobile menu panel (below fixed header) */
 export const mobileNavPanelTop =
-  "top-[calc(env(safe-area-inset-top)+3.5rem)]";
+  "top-[calc(env(safe-area-inset-top)+3.5rem)] lg:top-[calc(env(safe-area-inset-top)+4rem)]";
 
 /** Sticky header offset for anchor links (matches navbar height) */
 export const scrollMtHeader =
-  "scroll-mt-[calc(env(safe-area-inset-top)+3.5rem)] md:scroll-mt-[calc(env(safe-area-inset-top)+4rem)]";
+  "scroll-mt-[calc(env(safe-area-inset-top)+3.5rem)] lg:scroll-mt-[calc(env(safe-area-inset-top)+4rem)]";
 
 /** Minimum touch target (44×44px) for interactive controls */
 export const touchTarget =
   "min-h-11 min-w-11 inline-flex items-center justify-center";
+
+/** Minty chat — FAB (fixed, bottom-right, safe-area aware) */
+export const chatFabPosition =
+  "bottom-[max(0.75rem,env(safe-area-inset-bottom))] right-[max(0.75rem,env(safe-area-inset-right))] sm:bottom-6 sm:right-6";
+
+/** Minty chat — panel sits above FAB + insets on all viewports */
+export const chatPanelPosition = [
+  "bottom-[max(5rem,calc(env(safe-area-inset-bottom)+4.25rem))]",
+  "left-[max(0.5rem,env(safe-area-inset-left))]",
+  "right-[max(0.5rem,env(safe-area-inset-right))]",
+  "sm:bottom-[max(6.5rem,calc(env(safe-area-inset-bottom)+5.5rem))]",
+  "sm:left-auto sm:w-[min(100%,24rem)]",
+].join(" ");
+
+export const chatPanelSize = [
+  "max-h-[min(32rem,calc(100dvh-env(safe-area-inset-top)-env(safe-area-inset-bottom)-5.5rem))]",
+  "min-h-[min(16rem,42dvh)]",
+  "sm:max-h-[min(36rem,calc(100dvh-env(safe-area-inset-top)-8rem))]",
+  "sm:min-h-[min(20rem,48dvh)]",
+  "md:max-h-[min(40rem,calc(100dvh-env(safe-area-inset-top)-7rem))]",
+].join(" ");
 
 /** Inset hero card — category / about pages */
 export const heroCardHeightPage =

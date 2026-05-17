@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowUpRight } from "lucide-react";
+import { CardArrow } from "@/components/card-arrow";
 import { BlogCard } from "@/components/blog/blog-card";
 import { PageHero } from "@/components/pages/page-hero";
 import { ScrollReveal } from "@/components/scroll-reveal";
@@ -75,7 +75,7 @@ export function CategoryPage({ categoryId }: CategoryPageProps) {
                 className="group flex items-center justify-between rounded-2xl border border-border bg-card px-5 py-4 transition-colors hover:bg-elevated-hover"
               >
                 <span className="font-medium">{cat.label}</span>
-                <ArrowUpRight className="size-4 text-muted-foreground transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-foreground" />
+                <CardArrow variant="muted" size="sm" />
               </Link>
             ))}
           </div>

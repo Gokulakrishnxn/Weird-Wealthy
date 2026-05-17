@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowUpRight } from "lucide-react";
+import { CardArrow } from "@/components/card-arrow";
 import Image from "next/image";
 import { BlogHero } from "@/components/blog/blog-hero";
 import { ScrollReveal } from "@/components/scroll-reveal";
@@ -122,11 +122,11 @@ export function BlogOverviewPage({ authorSlug }: BlogOverviewPageProps) {
                     href={`/${featured.slug}`}
                     className={cn(
                       textLinkInternalEmphasis,
-                      "inline-flex items-center gap-1.5 text-sm font-medium"
+                      "group inline-flex items-center gap-1.5 text-sm font-medium"
                     )}
                   >
                     Read article
-                    <ArrowUpRight className="size-4" />
+                    <CardArrow variant="emphasis" size="sm" />
                   </Link>
                 </div>
                 </div>
@@ -243,11 +243,11 @@ export function BlogOverviewPage({ authorSlug }: BlogOverviewPageProps) {
               href={subscribeHref}
               className={cn(
                 textLinkInternalEmphasis,
-                "mt-4 inline-flex items-center gap-1.5 font-medium"
+                "group mt-4 inline-flex items-center gap-1.5 font-medium"
               )}
             >
               Subscribe to the newsletter
-              <ArrowUpRight className="size-4" />
+              <CardArrow variant="emphasis" size="sm" />
             </Link>
           </section>
         </ScrollReveal>

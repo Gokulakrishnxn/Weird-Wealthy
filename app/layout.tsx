@@ -3,8 +3,10 @@ import { Outfit } from "next/font/google";
 import { Footer } from "@/components/footer";
 import { SiteHeader } from "@/components/site-header";
 import { SmoothScroll } from "@/components/smooth-scroll";
+import { ChatWidget } from "@/components/chatbot/chat-widget";
 import { NewsletterPopup } from "@/components/newsletter-popup";
 import { ThemeProvider } from "@/components/theme-provider";
+import { siteConfig } from "@/lib/site";
 import "./globals.css";
 
 const logoFont = Outfit({
@@ -15,8 +17,12 @@ const logoFont = Outfit({
 });
 
 export const metadata: Metadata = {
-  title: "Weird & Wealthy",
-  description: "Design, technology, and building wealth.",
+  metadataBase: new URL(siteConfig.url),
+  title: {
+    default: siteConfig.name,
+    template: `%s | ${siteConfig.name}`,
+  },
+  description: siteConfig.description,
   icons: {
     icon: [
       { url: "/icon-192.png", type: "image/png", sizes: "192x192" },
@@ -56,6 +62,7 @@ export default function RootLayout({
             </main>
             <Footer />
             <NewsletterPopup />
+            <ChatWidget />
           </SmoothScroll>
         </ThemeProvider>
       </body>

@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowUpRight } from "lucide-react";
+import { CardArrow } from "@/components/card-arrow";
 import { homeCategories } from "@/lib/home/categories";
 import { pageContainer, scrollMtHeader } from "@/lib/layout";
 import { cn } from "@/lib/utils";
@@ -15,10 +15,10 @@ export function CategoryCards() {
         </h2>
         <Link
           href="/ai-news"
-          className="inline-flex w-fit items-center gap-2 rounded-full border border-border px-5 py-2.5 text-sm font-medium transition-colors hover:bg-elevated-hover"
+          className="group inline-flex w-fit items-center gap-2 rounded-full border border-border px-5 py-2.5 text-sm font-medium transition-colors hover:bg-elevated-hover"
         >
           Browse all articles
-          <ArrowUpRight className="size-4" />
+          <CardArrow variant="muted" size="sm" />
         </Link>
       </div>
 
@@ -36,8 +36,8 @@ export function CategoryCards() {
               className="absolute inset-0 size-full object-cover transition-transform duration-700 group-hover:scale-105"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-black/20" />
-            <span className="absolute right-4 top-4 flex size-10 items-center justify-center rounded-full bg-white/25 text-white backdrop-blur-sm transition-colors group-hover:bg-white group-hover:text-black">
-              <ArrowUpRight className="size-5 text-white/90 group-hover:text-black" />
+            <span className="absolute right-4 top-4 flex size-10 items-center justify-center rounded-full bg-white/25 text-white backdrop-blur-sm transition-colors group-hover:bg-white">
+              <CardArrow variant="onDark" />
             </span>
             <div className="relative mt-auto p-6 sm:p-8">
               <p className="text-xs font-medium uppercase tracking-widest text-white/70">
