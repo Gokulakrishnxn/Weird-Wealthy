@@ -17,6 +17,13 @@ const logoFont = Outfit({
 export const metadata: Metadata = {
   title: "Weird & Wealthy",
   description: "Design, technology, and building wealth.",
+  icons: {
+    icon: [
+      { url: "/icon-192.png", type: "image/png", sizes: "192x192" },
+      { url: "/icon-512.png", type: "image/png", sizes: "512x512" },
+    ],
+    apple: [{ url: "/apple-icon.png", type: "image/png", sizes: "180x180" }],
+  },
 };
 
 export const viewport: Viewport = {
@@ -37,14 +44,16 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`h-full overflow-x-hidden ${logoFont.variable}`}
+      className={`h-full ${logoFont.variable}`}
       suppressHydrationWarning
     >
-      <body className="flex min-h-dvh flex-col overflow-x-hidden pb-[env(safe-area-inset-bottom)]">
+      <body className="flex min-h-dvh flex-col pb-[env(safe-area-inset-bottom)]">
         <ThemeProvider>
           <SmoothScroll>
             <SiteHeader />
-            <main className="flex min-w-0 flex-1 flex-col">{children}</main>
+            <main className="flex min-w-0 flex-1 flex-col overflow-x-hidden">
+              {children}
+            </main>
             <Footer />
             <NewsletterPopup />
           </SmoothScroll>

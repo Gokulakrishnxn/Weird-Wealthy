@@ -5,8 +5,20 @@ export const pageContainer =
 /** Centered reading column for blog posts */
 export const articleColumn = "mx-auto w-full max-w-3xl";
 
+/** Fixed navbar height (excludes safe-area; header adds inset separately) */
+export const headerBarHeight = "h-14 md:h-16";
+
+/** Spacer below fixed header (bar + safe-area) */
+export const headerSpacer =
+  "h-[calc(env(safe-area-inset-top)+3.5rem)] shrink-0 md:h-[calc(env(safe-area-inset-top)+4rem)]";
+
+/** Top edge of mobile menu panel (below fixed header) */
+export const mobileNavPanelTop =
+  "top-[calc(env(safe-area-inset-top)+3.5rem)]";
+
 /** Sticky header offset for anchor links (matches navbar height) */
-export const scrollMtHeader = "scroll-mt-[3.5rem] md:scroll-mt-16";
+export const scrollMtHeader =
+  "scroll-mt-[calc(env(safe-area-inset-top)+3.5rem)] md:scroll-mt-[calc(env(safe-area-inset-top)+4rem)]";
 
 /** Minimum touch target (44×44px) for interactive controls */
 export const touchTarget =
@@ -24,6 +36,5 @@ export const heroCardHeightHome =
 export const heroCardShell =
   "relative isolate w-full overflow-hidden rounded-3xl border border-border bg-card shadow-lg shadow-foreground/[0.06] ring-1 ring-foreground/[0.08] md:rounded-[2rem] md:shadow-xl";
 
-/** Hero section outer spacing (below sticky nav) */
-export const heroSectionPadding =
-  "pb-4 pt-[calc(env(safe-area-inset-top)+3.75rem)] sm:pb-6 sm:pt-[calc(env(safe-area-inset-top)+4rem)] md:pb-8 md:pt-[calc(env(safe-area-inset-top)+4.25rem)]";
+/** Hero section outer spacing (below fixed nav spacer in layout) */
+export const heroSectionPadding = "pb-4 pt-4 sm:pb-6 sm:pt-6 md:pb-8 md:pt-8";

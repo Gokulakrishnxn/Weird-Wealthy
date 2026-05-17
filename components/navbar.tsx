@@ -7,7 +7,12 @@ import { Menu, Search, X } from "lucide-react";
 import { Logo } from "@/components/logo";
 import { SearchCommand } from "@/components/search-command";
 import { ThemeToggle } from "@/components/theme-toggle";
-import { pageContainer, scrollMtHeader, touchTarget } from "@/lib/layout";
+import {
+  mobileNavPanelTop,
+  pageContainer,
+  scrollMtHeader,
+  touchTarget,
+} from "@/lib/layout";
 import { isNavActive, mainNav, subscribeHref } from "@/lib/navigation";
 import { cn } from "@/lib/utils";
 
@@ -57,18 +62,21 @@ export function Navbar() {
   return (
     <header
       className={cn(
-        "sticky top-0 inset-x-0 z-50 pt-[env(safe-area-inset-top)]",
+        "fixed inset-x-0 top-0 z-50 pt-[env(safe-area-inset-top)]",
         "border-b border-border bg-background/95 text-foreground backdrop-blur-xl backdrop-saturate-150",
         "supports-[backdrop-filter]:bg-background/90"
       )}
     >
       <div
         className={cn(
-          "flex h-14 min-w-0 items-center gap-2 text-foreground md:h-16 md:gap-3",
+          "flex h-14 min-w-0 items-center justify-between gap-2 text-foreground md:h-16 md:gap-3",
           pageContainer
         )}
       >
-        <Logo size="md" className="max-w-[52vw] sm:max-w-none" />
+        <div className="min-w-0 flex-1 overflow-hidden pr-1 sm:pr-2">
+          <Logo size="sm" className="md:hidden" />
+          <Logo size="md" className="hidden md:inline-flex" />
+        </div>
 
         <nav
           className="scrollbar-none hidden min-w-0 flex-1 items-center justify-center gap-0.5 overflow-x-auto px-1 md:flex lg:hidden"
@@ -96,7 +104,7 @@ export function Navbar() {
           ))}
         </nav>
 
-        <div className="ml-auto flex shrink-0 items-center justify-end gap-1 text-foreground sm:gap-1.5">
+        <div className="flex shrink-0 items-center justify-end gap-0.5 text-foreground sm:gap-1.5">
           <ThemeToggle />
           <SearchCommand className="hidden md:inline-flex" />
           <button
@@ -137,7 +145,10 @@ export function Navbar() {
 
       {mobileOpen && (
         <div
-          className="fixed inset-x-0 bottom-0 top-14 z-40 overflow-y-auto border-t border-border bg-background text-foreground md:hidden"
+          className={cn(
+            "fixed inset-x-0 bottom-0 z-40 overflow-y-auto border-t border-border bg-background text-foreground md:hidden",
+            mobileNavPanelTop
+          )}
           style={{ paddingBottom: "env(safe-area-inset-bottom)" }}
           role="dialog"
           aria-modal="true"

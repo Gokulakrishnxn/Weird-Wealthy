@@ -1,6 +1,37 @@
+import type { CSSProperties } from "react";
 import Link from "next/link";
 import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/utils";
+
+/** Transparent mark (black shape); tinted via CSS mask + background */
+export const LOGO_MARK_SRC = "/logo.png";
+
+const logoIconSizes = cva(
+  [
+    "shrink-0",
+    "bg-current",
+    "[mask-image:var(--logo-mask)] [mask-size:contain] [mask-repeat:no-repeat] [mask-position:center]",
+    "[-webkit-mask-image:var(--logo-mask)] [-webkit-mask-size:contain] [-webkit-mask-repeat:no-repeat] [-webkit-mask-position:center]",
+  ],
+  {
+    variants: {
+      size: {
+        sm: "size-5",
+        md: "size-5 sm:size-6",
+        lg: "size-6 sm:size-7 md:size-8",
+      },
+      tone: {
+        default: "text-foreground",
+        inverse: "text-[var(--newsletter-fg)]",
+        muted: "text-foreground",
+      },
+    },
+    defaultVariants: {
+      size: "md",
+      tone: "default",
+    },
+  }
+);
 
 const logoVariants = cva("inline-flex min-w-0 max-w-full text-foreground", {
   variants: {
@@ -39,6 +70,23 @@ type LogoProps = VariantProps<typeof logoVariants> & {
   showTagline?: boolean;
 };
 
+function LogoIcon({
+  size,
+  tone,
+}: Pick<VariantProps<typeof logoVariants>, "size" | "tone">) {
+  return (
+    <span
+      aria-hidden
+      className={logoIconSizes({ size, tone })}
+      style={
+        {
+          "--logo-mask": `url(${LOGO_MARK_SRC})`,
+        } as CSSProperties
+      }
+    />
+  );
+}
+
 function LogoMark({
   size,
   tone,
@@ -46,17 +94,20 @@ function LogoMark({
 }: VariantProps<typeof logoVariants> & { showTagline?: boolean }) {
   return (
     <span className={cn(logoVariants({ size, tone }), "flex flex-col leading-none")}>
-      <span
-        className={cn(
-          "flex items-baseline gap-[0.35em] font-[family-name:var(--font-logo)] font-bold tracking-[-0.045em]",
-          "text-[length:var(--logo-text)]"
-        )}
-      >
-        <span>weird</span>
-        <span className={ampVariants({ tone })} aria-hidden>
-          &
+      <span className="flex min-w-0 items-center gap-1.5 sm:gap-2">
+        <LogoIcon size={size} tone={tone} />
+        <span
+          className={cn(
+            "flex min-w-0 items-baseline gap-[0.35em] font-[family-name:var(--font-logo)] font-bold tracking-[-0.045em]",
+            "text-[length:var(--logo-text)]"
+          )}
+        >
+          <span>weird</span>
+          <span className={ampVariants({ tone })} aria-hidden>
+            &
+          </span>
+          <span>wealthy</span>
         </span>
-        <span>wealthy</span>
       </span>
       {showTagline && (
         <span
@@ -98,7 +149,7 @@ export function Logo({
     <Link
       href="/"
       className={cn(
-        "inline-block min-w-0 shrink-0 transition-opacity hover:opacity-75",
+        "inline-block min-w-0 max-w-full transition-opacity hover:opacity-75",
         className
       )}
       aria-label="Weird & Wealthy — home"
