@@ -23,9 +23,16 @@ export async function loginAction(formData: FormData) {
     .from("authors")
     .select("role")
     .eq("user_id", user.id)
-    .single();
+    .maybeSingle();
 
-  redirect(author?.role === "admin" ? "/admin" : "/author");
+  if (!author) {
+    return {
+      error:
+        "Your account is not linked to an author profile yet. Ask an admin to invite you.",
+    };
+  }
+
+  redirect(author.role === "admin" ? "/admin" : "/author");
 }
 
 export async function logoutAction() {
