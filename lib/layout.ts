@@ -2,6 +2,9 @@
 export const pageContainer =
   "mx-auto w-full min-w-0 max-w-7xl px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12";
 
+/** Centered reading column for blog posts */
+export const articleColumn = "mx-auto w-full max-w-3xl";
+
 /** Sticky header offset for anchor links (matches navbar height) */
 export const scrollMtHeader = "scroll-mt-[3.5rem] md:scroll-mt-16";
 

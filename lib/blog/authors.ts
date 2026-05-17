@@ -1,3 +1,15 @@
+export function getAuthorSlug(authorName: string): string {
+  return authorName
+    .trim()
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-|-$/g, "");
+}
+
+export function getAuthorHref(authorName: string): string {
+  return `/blog?author=${getAuthorSlug(authorName)}`;
+}
+
 /** Stable portrait per author (Dicebear notionists, dark-friendly) */
 export function getAuthorAvatar(authorName: string): string {
   const seed = encodeURIComponent(authorName.trim());

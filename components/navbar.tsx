@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { Menu, Search, X } from "lucide-react";
+import { Logo } from "@/components/logo";
 import { SearchCommand } from "@/components/search-command";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { pageContainer, scrollMtHeader, touchTarget } from "@/lib/layout";
@@ -67,12 +68,7 @@ export function Navbar() {
           pageContainer
         )}
       >
-        <Link
-          href="/"
-          className="min-w-0 max-w-[42vw] shrink-0 truncate text-sm font-semibold tracking-tight text-foreground transition-opacity hover:opacity-70 sm:max-w-none sm:text-base md:text-lg"
-        >
-          Weird & Wealthy
-        </Link>
+        <Logo size="md" className="max-w-[52vw] sm:max-w-none" />
 
         <nav
           className="scrollbar-none hidden min-w-0 flex-1 items-center justify-center gap-0.5 overflow-x-auto px-1 md:flex lg:hidden"

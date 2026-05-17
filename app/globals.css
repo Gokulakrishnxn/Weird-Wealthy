@@ -44,6 +44,8 @@
   --color-inverse-foreground: var(--inverse-foreground);
   --color-elevated: var(--elevated);
   --color-elevated-hover: var(--elevated-hover);
+  --color-link: var(--link);
+  --color-link-hover: var(--link-hover);
   --radius-sm: calc(var(--radius) * 0.6);
   --radius-md: calc(var(--radius) * 0.8);
   --radius-lg: var(--radius);
@@ -99,6 +101,8 @@
   --newsletter-bg: #1a1917;
   --newsletter-fg: #f0eee9;
   --newsletter-muted: rgba(240, 238, 233, 0.65);
+  --link: #1d4ed8;
+  --link-hover: #1e3a8a;
 }
 
 /* Dark theme */
@@ -137,6 +141,8 @@
   --newsletter-bg: #f5f5f7;
   --newsletter-fg: #000000;
   --newsletter-muted: rgba(0, 0, 0, 0.55);
+  --link: #60a5fa;
+  --link-hover: #93c5fd;
 }
 
 @layer base {

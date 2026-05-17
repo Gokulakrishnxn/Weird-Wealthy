@@ -25,6 +25,13 @@ const extraPages: SearchResult[] = [
     href: "/about",
     type: "page",
   },
+  {
+    id: "blog",
+    title: "Blog",
+    description: "Browse all journal stories and articles",
+    href: "/blog",
+    type: "page",
+  },
 ];
 
 function normalize(text: string) {

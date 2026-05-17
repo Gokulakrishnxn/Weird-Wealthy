@@ -8,6 +8,7 @@ export type NavItem = {
 
 export const mainNav: NavItem[] = [
   { label: "Home", href: "/" },
+  { label: "Blog", href: "/blog" },
   ...categoryList.map((c) => ({ label: c.label, href: c.path })),
 ];
 

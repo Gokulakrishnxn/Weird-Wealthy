@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { AuthorAvatar } from "@/components/blog/author-avatar";
+import { AuthorLink } from "@/components/blog/author-link";
 import type { BlogPost } from "@/lib/blog/types";
 import { pageContainer } from "@/lib/layout";
 import { cn } from "@/lib/utils";
@@ -50,7 +51,9 @@ export function FeaturedSidebar({ featured, popular }: FeaturedSidebarProps) {
               avatar={featured.authorAvatar}
               size="lg"
             />
-            <h3 className="mt-4 text-lg font-semibold">{featured.author}</h3>
+            <h3 className="mt-4 text-lg font-semibold">
+              <AuthorLink name={featured.author} />
+            </h3>
             <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
               Writer at Weird & Wealthy covering design, wealth, and the weird
               edge of building products people love.

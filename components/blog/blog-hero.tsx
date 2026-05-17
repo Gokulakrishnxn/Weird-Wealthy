@@ -29,9 +29,11 @@ export function BlogHero({
           <p className="text-base font-medium leading-snug text-foreground/90 sm:text-lg md:text-xl">
             {subline}
           </p>
-          <p className="text-sm leading-relaxed text-muted-foreground sm:text-base md:text-lg">
-            {tagline}
-          </p>
+          {tagline ? (
+            <p className="text-sm leading-relaxed text-muted-foreground sm:text-base md:text-lg">
+              {tagline}
+            </p>
+          ) : null}
         </div>
         <p className="mt-6 flex flex-wrap items-center gap-x-2 gap-y-1 text-xs text-muted-foreground sm:mt-8 sm:text-sm md:mt-10">
           <span className="text-foreground/80">

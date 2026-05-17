@@ -1,3 +1,4 @@
+import { getAuthorSlug } from "./authors";
 import type { BlogCategoryId } from "./categories";
 import type { BlogPost } from "./types";
 
@@ -144,6 +145,12 @@ export function getPostsByCategory(category: BlogCategoryId): BlogPost[] {
   return blogPosts.filter((post) => post.category === category);
 }
 
+export function getPostsByAuthorSlug(authorSlug: string): BlogPost[] {
+  return blogPosts.filter(
+    (post) => getAuthorSlug(post.author) === authorSlug
+  );
+}
+
 export function getAllBlogSlugs(): string[] {
   return blogPosts.map((post) => post.slug);
 }
@@ -157,4 +164,5 @@ export const reservedSlugs = [
   "lifestyle",
   "newsletter",
   "about",
+  "blog",
 ];

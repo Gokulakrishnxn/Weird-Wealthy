@@ -1,4 +1,5 @@
 import { AuthorAvatar } from "@/components/blog/author-avatar";
+import { AuthorLink } from "@/components/blog/author-link";
 import { cn } from "@/lib/utils";
 
 type AuthorMetaProps = {
@@ -32,9 +33,10 @@ export function AuthorMeta({
     >
       <AuthorAvatar name={author} avatar={authorAvatar} size={avatarSize} />
       <div className="flex min-w-0 flex-wrap items-center gap-x-2 gap-y-0.5 text-[11px] sm:text-xs md:text-sm">
-        <span className="max-w-full truncate font-medium text-foreground/90">
-          {author}
-        </span>
+        <AuthorLink
+          name={author}
+          className="max-w-full truncate"
+        />
         <span className="hidden size-1 shrink-0 rounded-full bg-muted-foreground sm:block" />
         <time className="shrink-0" dateTime={createdAt}>
           {createdAt}

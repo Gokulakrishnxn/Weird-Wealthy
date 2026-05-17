@@ -9,6 +9,7 @@ import {
   hasSeenNewsletterPopup,
   markNewsletterPopupSeen,
 } from "@/lib/newsletter-popup";
+import { Logo } from "@/components/logo";
 import { subscribeHref } from "@/lib/navigation";
 import { cn } from "@/lib/utils";
 
@@ -75,9 +76,7 @@ export function NewsletterPopup() {
                 )}
               </span>
               <div className="min-w-0 flex-1">
-                <p className="text-[10px] font-medium uppercase tracking-[0.22em] opacity-70">
-                  Weird & Wealthy
-                </p>
+                <Logo asLink={false} size="sm" tone="inverse" className="opacity-90" />
                 <p className="truncate text-sm font-semibold tracking-tight">
                   The Weekly Note
                 </p>
