@@ -1,112 +1,117 @@
+import type { ChatCompletionMessageParam } from "openai/resources/chat/completions";
 import { NextResponse } from "next/server";
 import {
   buildRetrievalContext,
   getFeaturedPostHints,
 } from "@/lib/chatbot/context";
+import { getGroqClient, GROQ_MODEL } from "@/lib/chatbot/groq";
 import { MINTY_SYSTEM_PROMPT } from "@/lib/chatbot/minty-prompt";
 import { getBotReply } from "@/lib/chatbot/responses";
+import type {
+  ChatHistoryMessage,
+  ChatRequestBody,
+  ChatResponseBody,
+} from "@/lib/chatbot/types";
 
 export const runtime = "nodejs";
 
-type ChatMessage = {
-  role: "user" | "assistant";
-  content: string;
-};
-
 const MAX_HISTORY = 12;
+const MAX_MESSAGE_LENGTH = 2000;
+
+function isValidHistoryEntry(
+  entry: unknown
+): entry is ChatHistoryMessage {
+  if (!entry || typeof entry !== "object") return false;
+  const m = entry as ChatHistoryMessage;
+  return (
+    (m.role === "user" || m.role === "assistant") &&
+    typeof m.content === "string" &&
+    m.content.trim().length > 0
+  );
+}
+
+function parseRequestBody(body: unknown): ChatRequestBody | null {
+  if (!body || typeof body !== "object") return null;
+
+  const { message, history } = body as ChatRequestBody;
+
+  if (typeof message !== "string" || !message.trim()) return null;
+
+  const parsedHistory = Array.isArray(history)
+    ? history.filter(isValidHistoryEntry).slice(-MAX_HISTORY)
+    : undefined;
+
+  return {
+    message: message.trim().slice(0, MAX_MESSAGE_LENGTH),
+    history: parsedHistory,
+  };
+}
 
 export async function POST(request: Request) {
-  let body: { messages?: ChatMessage[] };
+  let rawBody: unknown;
 
   try {
-    body = await request.json();
+    rawBody = await request.json();
   } catch {
-    return NextResponse.json({ error: "Invalid JSON" }, { status: 400 });
+    return NextResponse.json(
+      { error: "Invalid JSON body" },
+      { status: 400 }
+    );
   }
 
-  const messages = (body.messages ?? []).filter(
-    (m) =>
-      m &&
-      (m.role === "user" || m.role === "assistant") &&
-      typeof m.content === "string" &&
-      m.content.trim()
-  );
-
-  const lastUser = [...messages].reverse().find((m) => m.role === "user");
-  if (!lastUser) {
-    return NextResponse.json({ error: "No user message" }, { status: 400 });
+  const body = parseRequestBody(rawBody);
+  if (!body) {
+    return NextResponse.json(
+      { error: "Request must include a non-empty message string" },
+      { status: 400 }
+    );
   }
 
-  const query = lastUser.content.trim();
-  const retrieval = buildRetrievalContext(query);
+  const { message, history = [] } = body;
+
+  const retrieval = buildRetrievalContext(message);
   const contextBlock = retrieval
     ? retrieval
     : `## Sample articles on site\n${getFeaturedPostHints()}`;
 
   const systemWithContext = `${MINTY_SYSTEM_PROMPT}\n\n---\n${contextBlock}`;
 
-  const apiKey = process.env.OPENAI_API_KEY;
-  const model = process.env.OPENAI_MODEL ?? "gpt-4o-mini";
+  const groq = getGroqClient();
 
-  if (!apiKey) {
-    const fallback = getBotReply(query);
-    return NextResponse.json({
-      content: fallback.text,
-      source: "fallback",
+  if (!groq) {
+    const fallback = getBotReply(message);
+    return NextResponse.json<ChatResponseBody>({
+      reply: fallback.text,
     });
   }
 
-  const history = messages.slice(-MAX_HISTORY).map((m) => ({
-    role: m.role,
-    content: m.content,
-  }));
+  const chatMessages: ChatCompletionMessageParam[] = [
+    { role: "system", content: systemWithContext },
+    ...history.map((m) => ({
+      role: m.role,
+      content: m.content.trim().slice(0, MAX_MESSAGE_LENGTH),
+    })),
+    { role: "user", content: message },
+  ];
 
   try {
-    const res = await fetch("https://api.openai.com/v1/chat/completions", {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${apiKey}`,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        model,
-        temperature: 0.65,
-        max_tokens: 600,
-        messages: [
-          { role: "system", content: systemWithContext },
-          ...history,
-        ],
-      }),
+    const completion = await groq.chat.completions.create({
+      model: GROQ_MODEL,
+      messages: chatMessages,
+      temperature: 0.65,
+      max_tokens: 600,
     });
 
-    if (!res.ok) {
-      const errText = await res.text();
-      console.error("OpenAI error:", res.status, errText);
-      const fallback = getBotReply(query);
-      return NextResponse.json({
-        content: fallback.text,
-        source: "fallback",
-      });
-    }
+    const reply =
+      completion.choices[0]?.message?.content?.trim() ||
+      getBotReply(message).text;
 
-    const data = (await res.json()) as {
-      choices?: { message?: { content?: string } }[];
-    };
-
-    const content =
-      data.choices?.[0]?.message?.content?.trim() ||
-      getBotReply(query).text;
-
-    return NextResponse.json({
-      content,
-      source: "openai",
-    });
+    return NextResponse.json<ChatResponseBody>({ reply });
   } catch (error) {
-    console.error("Chat API error:", error);
-    const fallback = getBotReply(query);
-    return NextResponse.json({
-      content: fallback.text,
-      source: "fallback",
+    console.error("Groq API error:", error);
+    const fallback = getBotReply(message);
+    return NextResponse.json<ChatResponseBody>({
+      reply: fallback.text,
     });
   }
 }

@@ -132,7 +132,7 @@ export function ChatWidget() {
       setInput("");
       setTyping(true);
 
-      const history = [...messages, userMessage]
+      const priorTurns = messages
         .filter((m) => m.id !== "welcome")
         .map((m) => ({
           role: m.role,
@@ -143,16 +143,26 @@ export function ChatWidget() {
         const res = await fetch("/api/chat", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ messages: history }),
+          body: JSON.stringify({
+            message: trimmed,
+            history: priorTurns,
+          }),
         });
 
-        if (!res.ok) throw new Error("Chat request failed");
+        const data = (await res.json()) as { reply?: string; error?: string };
 
-        const data = (await res.json()) as { content: string };
+        if (!res.ok) {
+          throw new Error(data.error ?? "Chat request failed");
+        }
+
+        const reply = data.reply?.trim();
+        if (!reply) {
+          throw new Error("Empty response from assistant");
+        }
 
         setMessages((prev) => [
           ...prev,
-          replyToMessage(data.content, `bot-${Date.now()}`),
+          replyToMessage(reply, `bot-${Date.now()}`),
         ]);
       } catch {
         setMessages((prev) => [
