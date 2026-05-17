@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Footer } from "@/components/footer";
 import { SiteHeader } from "@/components/site-header";
 import { SmoothScroll } from "@/components/smooth-scroll";
+import { NewsletterPopup } from "@/components/newsletter-popup";
 import { ThemeProvider } from "@/components/theme-provider";
 import "./globals.css";
 
@@ -33,6 +34,7 @@ export default function RootLayout({
             <SiteHeader />
             <main className="flex min-w-0 flex-1 flex-col">{children}</main>
             <Footer />
+            <NewsletterPopup />
           </SmoothScroll>
         </ThemeProvider>
       </body>

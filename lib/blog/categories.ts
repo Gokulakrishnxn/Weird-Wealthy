@@ -46,8 +46,7 @@ export const categories: Record<BlogCategoryId, CategoryMeta> = {
     description:
       "Wealth habits, investing lenses, and financial clarity for the long game.",
     tagline: "Build wealth with intention, not anxiety.",
-    image: "/money-banner.jpg",
-    imagePosition: "center 35%",
+    image: "https://storage.efferd.com/creative/hyperspeed.webp",
   },
   "personal-branding": {
     id: "personal-branding",

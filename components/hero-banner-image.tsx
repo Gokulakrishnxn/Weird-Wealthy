@@ -29,7 +29,7 @@ export function HeroBannerImage({
       alt={alt}
       fill
       priority={priority}
-      quality={local ? 100 : 92}
+      quality={local ? 100 : 95}
       sizes="(max-width: 768px) 100vw, (max-width: 1536px) 100vw, 2400px"
       className={cn("object-cover", className)}
       style={{ objectPosition }}
