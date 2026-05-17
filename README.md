@@ -134,19 +134,27 @@ GROQ_MODEL=llama-3.3-70b-versatile
 
 ### 3. Set up the database
 
-Run `supabase/schema.sql` in your Supabase SQL editor. This creates:
-- `authors` and `posts` tables with full RLS policies
-- Storage buckets: `post-images` (16:9 card images) and `avatars`
-- Helper functions: `is_admin()`, `current_author_id()`
+In Supabase → **SQL** → **New query**, run these files **in order** (copy/paste each file’s contents):
+
+| Step | File | Purpose |
+|------|------|---------|
+| 1 | `supabase/01-schema-core.sql` | **Required** — `authors`, `posts`, RLS |
+| 2 | `supabase/02-storage.sql` | Image upload buckets |
+| 3 | `supabase/03-create-admin.sql` | Link your login user to admin |
+
+Step 1 must succeed before step 3. If you see `relation "public.authors" does not exist`, step 1 did not run.
+
+Verify tables exist:
+
+```sql
+select table_name from information_schema.tables
+where table_schema = 'public' and table_name in ('authors', 'posts');
+```
 
 ### 4. Create your admin author
 
-In Supabase, go to **Authentication → Users** and create a user for yourself. Then insert a row into the `authors` table:
-
-```sql
-insert into public.authors (user_id, name, slug, role)
-values ('<your-auth-user-id>', 'Your Name', 'your-name', 'admin');
-```
+1. Supabase → **Authentication** → **Users** → create a user (or sign up at `/auth/login`).
+2. Open `supabase/03-create-admin.sql`, replace `you@example.com` with your email, and run it in the SQL editor.
 
 ### 5. Run the dev server
 
