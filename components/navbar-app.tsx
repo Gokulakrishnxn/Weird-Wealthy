@@ -24,6 +24,7 @@ import {
   touchTarget,
 } from "@/lib/layout";
 import {
+  becomeAuthorFormHref,
   becomeAuthorHref,
   isNavActive,
   mainNav,
@@ -110,23 +111,37 @@ function SheetLink({
   label,
   active,
   onClick,
+  external,
 }: {
   href: string;
   label: string;
   active?: boolean;
   onClick: () => void;
+  external?: boolean;
 }) {
+  const className = cn(
+    "flex min-h-12 items-center rounded-xl px-4 text-base transition-colors",
+    active
+      ? "bg-elevated font-medium text-foreground"
+      : "text-foreground/90 active:bg-elevated-hover"
+  );
+
+  if (external || href.startsWith("http")) {
+    return (
+      <a
+        href={href}
+        target="_blank"
+        rel="noopener noreferrer"
+        onClick={onClick}
+        className={className}
+      >
+        {label}
+      </a>
+    );
+  }
+
   return (
-    <Link
-      href={href}
-      onClick={onClick}
-      className={cn(
-        "flex min-h-12 items-center rounded-xl px-4 text-base transition-colors",
-        active
-          ? "bg-elevated font-medium text-foreground"
-          : "text-foreground/90 active:bg-elevated-hover"
-      )}
-    >
+    <Link href={href} onClick={onClick} className={className}>
       {label}
     </Link>
   );
@@ -310,10 +325,11 @@ export function AppNavbar() {
           </li>
           <li>
             <SheetLink
-              href={becomeAuthorHref}
+              href={becomeAuthorFormHref}
               label="Become an author"
               active={pathname === becomeAuthorHref}
               onClick={closeSheet}
+              external
             />
           </li>
           <li className="pt-2">

@@ -4,7 +4,7 @@ import { absoluteUrl, siteConfig } from "@/lib/site";
 
 const title = "Become an author | Weird & Wealthy";
 const description =
-  "Pitch a story to Weird & Wealthy. We publish practical articles on design, AI, finance, personal branding, and lifestyle for builders and founders.";
+  "Apply to write for Weird & Wealthy. Join our platform for creators covering design, AI, finance, startups, and lifestyle—we review every application.";
 
 export const metadata: Metadata = {
   title,

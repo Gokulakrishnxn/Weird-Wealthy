@@ -5,7 +5,7 @@ import { motion, useReducedMotion } from "motion/react";
 import type { ReactNode } from "react";
 import { InstallAppButton } from "@/components/install-app-button";
 import { Logo } from "@/components/logo";
-import { becomeAuthorHref, mainNav, subscribeHref } from "@/lib/navigation";
+import { becomeAuthorFormHref, mainNav, subscribeHref } from "@/lib/navigation";
 import { pageContainer } from "@/lib/layout";
 import { cn } from "@/lib/utils";
 
@@ -31,7 +31,7 @@ const footerLinks: FooterSection[] = [
     label: "Company",
     links: [
       { title: "About", href: "/about" },
-      { title: "Become an author", href: becomeAuthorHref },
+      { title: "Become an author", href: becomeAuthorFormHref },
       { title: "Newsletter", href: subscribeHref },
       { title: "Contact", href: "mailto:hello@weirdandwealthy.com" },
       { title: "Privacy", href: "/about" },
@@ -83,12 +83,23 @@ export function Footer() {
                   <ul className="mt-4 space-y-2 text-sm text-muted-foreground">
                     {section.links.map((link) => (
                       <li key={`${section.label}-${link.title}`}>
-                        <Link
-                          className="inline-flex duration-200 hover:text-foreground"
-                          href={link.href}
-                        >
-                          {link.title}
-                        </Link>
+                        {link.href.startsWith("http") ? (
+                          <a
+                            href={link.href}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex duration-200 hover:text-foreground"
+                          >
+                            {link.title}
+                          </a>
+                        ) : (
+                          <Link
+                            className="inline-flex duration-200 hover:text-foreground"
+                            href={link.href}
+                          >
+                            {link.title}
+                          </Link>
+                        )}
                       </li>
                     ))}
                   </ul>

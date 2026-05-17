@@ -14,7 +14,12 @@ export const mainNav: NavItem[] = [
 
 export const subscribeHref = "/newsletter";
 
+/** On-site overview for writers */
 export const becomeAuthorHref = "/write";
+
+/** Google Form — author applications */
+export const becomeAuthorFormHref =
+  "https://docs.google.com/forms/d/e/1FAIpQLScbvbPJgI028t5Hr7mcr2mss1-GMAQUv2bM4C00QB5rVSU4-A/viewform";
 
 export function isNavActive(pathname: string, href: string): boolean {
   if (href === "/") {

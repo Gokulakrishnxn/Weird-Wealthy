@@ -1,28 +1,25 @@
 import Link from "next/link";
-import { Mail, PenLine } from "lucide-react";
+import { ExternalLink, PenLine } from "lucide-react";
 import { PageHero } from "@/components/pages/page-hero";
 import { articleColumn, pageContainer, scrollMtHeader } from "@/lib/layout";
-import { subscribeHref } from "@/lib/navigation";
-import { siteConfig } from "@/lib/site";
+import { becomeAuthorFormHref, subscribeHref } from "@/lib/navigation";
 import { textLinkInternal } from "@/lib/link-styles";
 import { cn } from "@/lib/utils";
 
 const topics = [
-  "AI tools, workflows, and industry shifts",
-  "Personal finance, investing mindset, and wealth habits",
-  "Design systems, UI craft, and product thinking",
-  "Personal branding and audience building",
-  "Lifestyle design for ambitious builders",
+  "Technology, AI, and startups",
+  "Business, finance, and productivity",
+  "Design, marketing, and creativity",
+  "Lifestyle, self-improvement, and personal stories",
+  "Internet culture and unique perspectives",
 ] as const;
 
 const guidelines = [
-  "Original work—no AI-generated drafts sent as finished pieces",
-  "1,200–2,500 words with a clear takeaway readers can use",
-  "Concrete examples, not generic listicles",
-  "Edited for clarity; we help tighten structure before publish",
+  "Original content only—we review every submission carefully",
+  "Practical ideas with a clear takeaway for readers",
+  "Concrete examples and real experience, not generic listicles",
+  "Open to feedback and editorial suggestions before publish",
 ] as const;
-
-const pitchMailto = `mailto:${siteConfig.email}?subject=${encodeURIComponent("Become an author — Weird & Wealthy")}`;
 
 export function WritePageContent() {
   return (
@@ -30,8 +27,8 @@ export function WritePageContent() {
       <PageHero
         eyebrow="Write for us"
         title="Become an author at Weird & Wealthy"
-        description="Share practical ideas on design, AI, finance, and building a life around your work—with readers who think differently and build on purpose."
-        tagline="We welcome pitches from practitioners, not promoters."
+        description="We’re building a modern publishing platform for writers, creators, and internet thinkers—share ideas on design, AI, finance, and the craft of building what lasts."
+        tagline="Whether you’re a beginner or a seasoned creator, we’d love to hear from you."
         image="https://storage.efferd.com/creative/light-rays.webp"
         featuredHref="/blog"
         featuredLabel="Read the journal"
@@ -75,19 +72,21 @@ export function WritePageContent() {
 
             <div className="rounded-2xl border border-border bg-card p-6 sm:p-8">
               <h2 className="text-lg font-semibold tracking-tight sm:text-xl">
-                Send a pitch
+                Apply to become an author
               </h2>
               <p className="mt-3 text-sm leading-relaxed text-muted-foreground sm:text-base">
-                Email a few sentences on your idea, your background, and links to
-                writing samples (portfolio, Substack, or published work). We
-                reply within a week when there&apos;s a fit.
+                Fill out our application form with your background, writing
+                samples, and a few story ideas. We review every submission and
+                reply when there&apos;s a fit.
               </p>
               <a
-                href={pitchMailto}
+                href={becomeAuthorFormHref}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="mt-6 inline-flex min-h-11 items-center justify-center gap-2 rounded-full bg-inverse px-6 text-sm font-medium text-inverse-foreground transition-opacity hover:opacity-90"
               >
-                <Mail className="size-4" aria-hidden />
-                Pitch your story
+                Open application form
+                <ExternalLink className="size-4" aria-hidden />
               </a>
             </div>
 
