@@ -1,6 +1,7 @@
 /** Site-wide config for metadata, SEO, and structured data */
 export const siteConfig = {
   name: "Weird & Wealthy",
+  shortName: "W&W",
   legalName: "Weird & Wealthy",
   tagline: "Where weird ideas meet lasting wealth",
   description:

@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Outfit } from "next/font/google";
 import { Footer } from "@/components/footer";
+import { RegisterServiceWorker } from "@/components/pwa/register-service-worker";
 import { SiteHeader } from "@/components/site-header";
 import { SmoothScroll } from "@/components/smooth-scroll";
 import { ChatWidget } from "@/components/chatbot/chat-widget";
@@ -30,6 +31,15 @@ export const metadata: Metadata = {
     ],
     apple: [{ url: "/apple-icon.png", type: "image/png", sizes: "180x180" }],
   },
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "default",
+    title: siteConfig.shortName,
+  },
+  applicationName: siteConfig.name,
+  formatDetection: {
+    telephone: false,
+  },
 };
 
 export const viewport: Viewport = {
@@ -55,6 +65,7 @@ export default function RootLayout({
     >
       <body className="flex min-h-dvh flex-col pb-[env(safe-area-inset-bottom)]">
         <ThemeProvider>
+          <RegisterServiceWorker />
           <SmoothScroll>
             <SiteHeader />
             <main className="flex min-w-0 flex-1 flex-col overflow-x-hidden">

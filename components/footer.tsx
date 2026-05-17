@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { motion, useReducedMotion } from "motion/react";
 import type { ReactNode } from "react";
+import { InstallAppButton } from "@/components/install-app-button";
 import { Logo } from "@/components/logo";
 import { mainNav, subscribeHref } from "@/lib/navigation";
 import { pageContainer } from "@/lib/layout";
@@ -68,6 +69,7 @@ export function Footer() {
               Where weird ideas meet lasting wealth—design, AI, finance, and
               the craft of building what lasts.
             </p>
+            <InstallAppButton className="pt-2" />
           </AnimatedContainer>
 
           <div className="grid grid-cols-2 gap-8 sm:grid-cols-3 lg:col-span-2">

@@ -12,8 +12,9 @@ export function SmoothScroll({ children }: SmoothScrollProps) {
     const prefersReducedMotion = window.matchMedia(
       "(prefers-reduced-motion: reduce)"
     ).matches;
+    const isCoarsePointer = window.matchMedia("(pointer: coarse)").matches;
 
-    if (prefersReducedMotion) {
+    if (prefersReducedMotion || isCoarsePointer) {
       return;
     }
 
