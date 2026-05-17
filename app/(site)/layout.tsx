@@ -1,22 +1,14 @@
-"use client";
-
-import { usePathname } from "next/navigation";
 import { SiteHeader } from "@/components/site-header";
 import { ConditionalFooter } from "@/components/pwa/conditional-footer";
 import { NewsletterPopup } from "@/components/newsletter-popup";
 import { ChatWidget } from "@/components/chatbot/chat-widget";
 import { SmoothScroll } from "@/components/smooth-scroll";
 
-const CMS_PREFIXES = ["/admin", "/author", "/auth", "/preview"];
-
-export function PublicShell({ children }: { children: React.ReactNode }) {
-  const pathname = usePathname();
-  const isCms = CMS_PREFIXES.some((p) => pathname.startsWith(p));
-
-  if (isCms) {
-    return <>{children}</>;
-  }
-
+export default function SiteLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
     <SmoothScroll>
       <SiteHeader />

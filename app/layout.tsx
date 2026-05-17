@@ -1,13 +1,8 @@
 import type { Metadata, Viewport } from "next";
 import { Outfit } from "next/font/google";
 import { AppSplash } from "@/components/pwa/app-splash";
-import { ConditionalFooter } from "@/components/pwa/conditional-footer";
 import { RegisterServiceWorker } from "@/components/pwa/register-service-worker";
 import { StandaloneInit } from "@/components/pwa/standalone-init";
-import { SiteHeader } from "@/components/site-header";
-import { SmoothScroll } from "@/components/smooth-scroll";
-import { ChatWidget } from "@/components/chatbot/chat-widget";
-import { NewsletterPopup } from "@/components/newsletter-popup";
 import { ThemeProvider } from "@/components/theme-provider";
 import { siteConfig } from "@/lib/site";
 import "./globals.css";
@@ -70,15 +65,7 @@ export default function RootLayout({
         <ThemeProvider>
           <RegisterServiceWorker />
           <AppSplash />
-          <SmoothScroll>
-            <SiteHeader />
-            <main className="flex min-w-0 flex-1 flex-col overflow-x-hidden">
-              {children}
-            </main>
-            <ConditionalFooter />
-            <NewsletterPopup />
-            <ChatWidget />
-          </SmoothScroll>
+          {children}
         </ThemeProvider>
       </body>
     </html>
