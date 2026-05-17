@@ -181,7 +181,7 @@ create policy "public_read_post_images" on storage.objects
 
 create policy "auth_delete_own_post_images" on storage.objects
   for delete to authenticated
-  using (bucket_id = 'post-images' and owner = auth.uid()::text);
+  using (bucket_id = 'post-images' and owner = auth.uid());
 
 -- Authenticated users can upload avatars
 create policy "auth_upload_avatars" on storage.objects
@@ -193,4 +193,4 @@ create policy "public_read_avatars" on storage.objects
 
 create policy "auth_delete_own_avatar" on storage.objects
   for delete to authenticated
-  using (bucket_id = 'avatars' and owner = auth.uid()::text);
+  using (bucket_id = 'avatars' and owner = auth.uid());
