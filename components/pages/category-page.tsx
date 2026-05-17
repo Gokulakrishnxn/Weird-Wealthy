@@ -8,17 +8,20 @@ import {
   getCategory,
   type BlogCategoryId,
 } from "@/lib/blog/categories";
+import type { BlogPost } from "@/lib/blog/types";
 import { getPostsByCategory } from "@/lib/blog/posts";
 import { pageContainer } from "@/lib/layout";
 import { cn } from "@/lib/utils";
 
 type CategoryPageProps = {
   categoryId: BlogCategoryId;
+  /** Pre-fetched posts (from Supabase). Falls back to static data. */
+  posts?: BlogPost[];
 };
 
-export function CategoryPage({ categoryId }: CategoryPageProps) {
+export function CategoryPage({ categoryId, posts: propPosts }: CategoryPageProps) {
   const category = getCategory(categoryId);
-  const posts = getPostsByCategory(categoryId);
+  const posts = propPosts ?? getPostsByCategory(categoryId);
   const featured = posts[0];
   const otherCategories = categoryList.filter((c) => c.id !== categoryId);
 

@@ -12,6 +12,17 @@ const nextConfig: NextConfig = {
         hostname: "storage.efferd.com",
         pathname: "/**",
       },
+      // Supabase Storage (replace <project-ref> with your project reference)
+      {
+        protocol: "https",
+        hostname: "*.supabase.co",
+        pathname: "/storage/v1/object/public/**",
+      },
+      {
+        protocol: "https",
+        hostname: "api.dicebear.com",
+        pathname: "/**",
+      },
     ],
   },
   async redirects() {

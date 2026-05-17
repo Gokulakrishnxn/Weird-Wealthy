@@ -12,9 +12,11 @@ import { cn } from "@/lib/utils";
 
 type PostArticleProps = {
   post: BlogPost;
+  /** Pre-rendered HTML from Tiptap (CMS posts). Falls back to static content. */
+  contentHtml?: string;
 };
 
-export function PostArticle({ post }: PostArticleProps) {
+export function PostArticle({ post, contentHtml }: PostArticleProps) {
   const category = getCategory(post.category);
   const content = getPostContent(post.slug);
 
@@ -81,7 +83,12 @@ export function PostArticle({ post }: PostArticleProps) {
       </ScrollReveal>
 
         <ScrollReveal delay={0.1} className="mt-8 sm:mt-10 md:mt-12">
-          {content ? (
+          {contentHtml ? (
+            <div
+              className="prose-article w-full text-base leading-[1.75] text-muted-foreground sm:text-lg sm:leading-[1.8]"
+              dangerouslySetInnerHTML={{ __html: contentHtml }}
+            />
+          ) : content ? (
             <PostBody content={content} />
           ) : (
             <p className="text-center text-muted-foreground">

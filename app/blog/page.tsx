@@ -1,5 +1,9 @@
 import type { Metadata } from "next";
 import { BlogOverviewPage } from "@/components/pages/blog-overview-page";
+import { getPublishedPosts } from "@/lib/supabase/posts";
+import { blogPosts } from "@/lib/blog/posts";
+
+export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
   title: "Blog | Weird & Wealthy",
@@ -13,6 +17,8 @@ type BlogPageProps = {
 
 export default async function BlogPage({ searchParams }: BlogPageProps) {
   const { author } = await searchParams;
+  const dbPosts = await getPublishedPosts();
+  const posts = dbPosts.length > 0 ? dbPosts : blogPosts;
 
-  return <BlogOverviewPage authorSlug={author} />;
+  return <BlogOverviewPage authorSlug={author} posts={posts} />;
 }

@@ -9,6 +9,7 @@ import {
   type BlogCategoryId,
 } from "@/lib/blog/categories";
 import { AuthorLink } from "@/components/blog/author-link";
+import type { BlogPost } from "@/lib/blog/types";
 import {
   blogPosts,
   getPostsByAuthorSlug,
@@ -32,10 +33,15 @@ function formatDate(iso: string) {
 
 type BlogOverviewPageProps = {
   authorSlug?: string;
+  /** Pre-fetched posts from Supabase — falls back to static data. */
+  posts?: BlogPost[];
 };
 
-export function BlogOverviewPage({ authorSlug }: BlogOverviewPageProps) {
-  const filtered = authorSlug ? getPostsByAuthorSlug(authorSlug) : blogPosts;
+export function BlogOverviewPage({ authorSlug, posts: propPosts }: BlogOverviewPageProps) {
+  const allPosts = propPosts ?? blogPosts;
+  const filtered = authorSlug
+    ? allPosts.filter((p) => p.author.toLowerCase().replace(/[^a-z0-9]+/g, "-") === authorSlug)
+    : allPosts;
   const authorName = authorSlug
     ? filtered[0]?.author ?? authorSlug.replace(/-/g, " ")
     : null;
@@ -163,7 +169,7 @@ export function BlogOverviewPage({ authorSlug }: BlogOverviewPageProps) {
                   All articles
                 </h2>
                 <p className="mt-1 text-sm text-muted-foreground sm:text-base">
-                  {blogPosts.length} stories · sorted by date
+                  {allPosts.length} stories · sorted by date
                 </p>
               </div>
             </div>

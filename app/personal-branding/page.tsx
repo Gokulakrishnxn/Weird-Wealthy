@@ -1,7 +1,10 @@
 import type { Metadata } from "next";
 import { CategoryPage } from "@/components/pages/category-page";
 import { getCategory } from "@/lib/blog/categories";
+import { getPublishedPostsByCategory } from "@/lib/supabase/posts";
+import { getPostsByCategory } from "@/lib/blog/posts";
 
+export const dynamic = "force-dynamic";
 const category = getCategory("personal-branding");
 
 export const metadata: Metadata = {
@@ -9,6 +12,8 @@ export const metadata: Metadata = {
   description: category.description,
 };
 
-export default function PersonalBrandingPage() {
-  return <CategoryPage categoryId="personal-branding" />;
+export default async function PersonalBrandingPage() {
+  const dbPosts = await getPublishedPostsByCategory("personal-branding");
+  const posts = dbPosts.length > 0 ? dbPosts : getPostsByCategory("personal-branding");
+  return <CategoryPage categoryId="personal-branding" posts={posts} />;
 }

@@ -1,10 +1,10 @@
 import { BlogCard } from "@/components/blog/blog-card";
 import { ScrollReveal } from "@/components/scroll-reveal";
-import { blogPosts } from "@/lib/blog/posts";
+import type { BlogPost } from "@/lib/blog/types";
 import { pageContainer, scrollMtHeader } from "@/lib/layout";
 import { cn } from "@/lib/utils";
 
-export function LatestStories() {
+export function LatestStories({ posts }: { posts: BlogPost[] }) {
   return (
     <section
       id="ai-news"
@@ -24,12 +24,12 @@ export function LatestStories() {
           </h2>
         </div>
         <p className="text-sm text-muted-foreground">
-          {blogPosts.length} articles
+          {posts.length} articles
         </p>
       </div>
 
       <div className="mt-8 grid grid-cols-1 gap-5 sm:grid-cols-2 sm:gap-6 md:gap-8 lg:grid-cols-3 lg:gap-10">
-        {blogPosts.map((post, index) => (
+        {posts.map((post, index) => (
           <ScrollReveal key={post.slug} delay={Math.min(index * 0.05, 0.4)}>
             <BlogCard {...post} />
           </ScrollReveal>
