@@ -14,6 +14,8 @@ export const mainNav: NavItem[] = [
 
 export const subscribeHref = "/newsletter";
 
+export const becomeAuthorHref = "/write";
+
 export function isNavActive(pathname: string, href: string): boolean {
   if (href === "/") {
     return pathname === "/";

@@ -23,7 +23,12 @@ import {
   pageContainer,
   touchTarget,
 } from "@/lib/layout";
-import { isNavActive, mainNav, subscribeHref } from "@/lib/navigation";
+import {
+  becomeAuthorHref,
+  isNavActive,
+  mainNav,
+  subscribeHref,
+} from "@/lib/navigation";
 import { cn } from "@/lib/utils";
 
 type AppTab = "home" | "blog" | "topics" | "search" | "more";
@@ -157,7 +162,11 @@ export function AppNavbar() {
         return categoryList.some((c) => isNavActive(pathname, c.path));
       }
       if (tab.id === "more") {
-        return pathname === "/about" || pathname === subscribeHref;
+        return (
+          pathname === "/about" ||
+          pathname === becomeAuthorHref ||
+          pathname === subscribeHref
+        );
       }
       return false;
     }
@@ -296,6 +305,14 @@ export function AppNavbar() {
               href="/about"
               label="About"
               active={pathname === "/about"}
+              onClick={closeSheet}
+            />
+          </li>
+          <li>
+            <SheetLink
+              href={becomeAuthorHref}
+              label="Become an author"
+              active={pathname === becomeAuthorHref}
               onClick={closeSheet}
             />
           </li>

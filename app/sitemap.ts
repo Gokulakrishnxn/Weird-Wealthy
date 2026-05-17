@@ -8,6 +8,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const staticRoutes = [
     "",
     "/about",
+    "/write",
     "/blog",
     "/newsletter",
     ...categoryList.map((c) => c.path),

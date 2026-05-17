@@ -5,7 +5,7 @@ import { motion, useReducedMotion } from "motion/react";
 import type { ReactNode } from "react";
 import { InstallAppButton } from "@/components/install-app-button";
 import { Logo } from "@/components/logo";
-import { mainNav, subscribeHref } from "@/lib/navigation";
+import { becomeAuthorHref, mainNav, subscribeHref } from "@/lib/navigation";
 import { pageContainer } from "@/lib/layout";
 import { cn } from "@/lib/utils";
 
@@ -31,6 +31,7 @@ const footerLinks: FooterSection[] = [
     label: "Company",
     links: [
       { title: "About", href: "/about" },
+      { title: "Become an author", href: becomeAuthorHref },
       { title: "Newsletter", href: subscribeHref },
       { title: "Contact", href: "mailto:hello@weirdandwealthy.com" },
       { title: "Privacy", href: "/about" },

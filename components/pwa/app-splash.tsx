@@ -4,14 +4,14 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import { LOGO_MARK_SRC } from "@/components/logo";
-import { useStandaloneApp } from "@/hooks/use-standalone-app";
+import { useAppMobileShell } from "@/hooks/use-app-mobile-shell";
 import { siteConfig } from "@/lib/site";
 import { cn } from "@/lib/utils";
 
 const MIN_SPLASH_MS = 900;
 
 export function AppSplash() {
-  const isApp = useStandaloneApp();
+  const isApp = useAppMobileShell();
   const [phase, setPhase] = useState<"visible" | "exit" | "done">("visible");
   const [mounted, setMounted] = useState(false);
 

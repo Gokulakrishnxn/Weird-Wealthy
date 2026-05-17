@@ -1,10 +1,10 @@
 "use client";
 
 import { Footer } from "@/components/footer";
-import { useStandaloneApp } from "@/hooks/use-standalone-app";
+import { useAppMobileShell } from "@/hooks/use-app-mobile-shell";
 
 export function ConditionalFooter() {
-  const isApp = useStandaloneApp();
-  if (isApp) return null;
+  const isAppMobile = useAppMobileShell();
+  if (isAppMobile) return null;
   return <Footer />;
 }
