@@ -202,6 +202,7 @@ export function ChatWidget() {
             animate={reduceMotion ? undefined : { opacity: 1, y: 0, scale: 1 }}
             exit={reduceMotion ? undefined : { opacity: 0, y: 12, scale: 0.98 }}
             transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+            data-chat-panel
             className={cn(
               "fixed z-[65] flex w-auto max-w-[24rem] flex-col overflow-hidden font-sans",
               "rounded-2xl border border-border bg-card shadow-[0_24px_60px_-16px_rgba(0,0,0,0.45)]",
@@ -338,6 +339,7 @@ export function ChatWidget() {
         aria-expanded={open}
         aria-controls="chat-widget-panel"
         aria-label={open ? `Close ${MINTY_NAME} chat` : `Chat with ${MINTY_NAME}`}
+        data-chat-fab
         className={cn(
           "fixed z-[55] overflow-hidden rounded-full bg-black",
           "shadow-[0_12px_40px_-8px_rgba(0,0,0,0.55)]",

@@ -225,6 +225,26 @@
   }
 }
 
+/* Installed PWA — lift chat FAB above bottom tab bar */
+html.app-standalone [data-chat-fab] {
+  bottom: max(
+    calc(env(safe-area-inset-bottom) + 4.25rem),
+    calc(env(safe-area-inset-bottom) + 1rem + 3.5rem)
+  ) !important;
+  right: max(0.75rem, env(safe-area-inset-right)) !important;
+}
+
+html.app-standalone main {
+  padding-bottom: 0;
+}
+
+html.app-standalone [data-chat-panel] {
+  bottom: max(
+    calc(env(safe-area-inset-bottom) + 8.5rem),
+    calc(env(safe-area-inset-bottom) + 5.5rem + 3.5rem)
+  ) !important;
+}
+
 /* Mobile / touch — native feel, safe areas */
 @media (pointer: coarse) {
   html {

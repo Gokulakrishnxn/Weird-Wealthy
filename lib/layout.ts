@@ -5,6 +5,18 @@ export const pageContainer =
 /** Centered reading column for blog posts */
 export const articleColumn = "mx-auto w-full max-w-3xl";
 
+/** Installed PWA — compact top bar */
+export const appHeaderHeight = "h-12";
+
+export const appHeaderSpacer =
+  "h-[calc(env(safe-area-inset-top)+3rem)] shrink-0";
+
+/** Installed PWA — bottom tab bar (bar only; safe-area on nav element) */
+export const appTabBarHeight = "h-14";
+
+export const appTabBarSpacer =
+  "h-[calc(env(safe-area-inset-bottom)+3.5rem)] shrink-0";
+
 /** Fixed navbar height (excludes safe-area; header adds inset separately) */
 export const headerBarHeight = "h-14 lg:h-16";
 

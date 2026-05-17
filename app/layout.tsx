@@ -1,7 +1,9 @@
 import type { Metadata, Viewport } from "next";
 import { Outfit } from "next/font/google";
-import { Footer } from "@/components/footer";
+import { AppSplash } from "@/components/pwa/app-splash";
+import { ConditionalFooter } from "@/components/pwa/conditional-footer";
 import { RegisterServiceWorker } from "@/components/pwa/register-service-worker";
+import { StandaloneInit } from "@/components/pwa/standalone-init";
 import { SiteHeader } from "@/components/site-header";
 import { SmoothScroll } from "@/components/smooth-scroll";
 import { ChatWidget } from "@/components/chatbot/chat-widget";
@@ -63,15 +65,17 @@ export default function RootLayout({
       className={`h-full ${logoFont.variable}`}
       suppressHydrationWarning
     >
-      <body className="flex min-h-dvh flex-col pb-[env(safe-area-inset-bottom)]">
+      <body className="flex min-h-dvh flex-col">
+        <StandaloneInit />
         <ThemeProvider>
           <RegisterServiceWorker />
+          <AppSplash />
           <SmoothScroll>
             <SiteHeader />
             <main className="flex min-w-0 flex-1 flex-col overflow-x-hidden">
               {children}
             </main>
-            <Footer />
+            <ConditionalFooter />
             <NewsletterPopup />
             <ChatWidget />
           </SmoothScroll>

@@ -2,23 +2,14 @@
 
 import { useCallback, useEffect, useState } from "react";
 import { Download, Share, X } from "lucide-react";
-import { cn } from "@/lib/utils";
 import { touchTarget } from "@/lib/layout";
+import { isStandaloneApp } from "@/lib/pwa";
+import { cn } from "@/lib/utils";
 
 type BeforeInstallPromptEvent = Event & {
   prompt: () => Promise<void>;
   userChoice: Promise<{ outcome: "accepted" | "dismissed" }>;
 };
-
-function isStandaloneDisplay() {
-  if (typeof window === "undefined") return false;
-  return (
-    window.matchMedia("(display-mode: standalone)").matches ||
-    // iOS Safari
-    ("standalone" in navigator &&
-      (navigator as Navigator & { standalone?: boolean }).standalone === true)
-  );
-}
 
 function isIosDevice() {
   if (typeof navigator === "undefined") return false;
@@ -37,7 +28,7 @@ export function InstallAppButton({ className }: InstallAppButtonProps) {
   const [isIos, setIsIos] = useState(false);
 
   useEffect(() => {
-    setInstalled(isStandaloneDisplay());
+    setInstalled(isStandaloneApp());
     setIsIos(isIosDevice());
 
     const onBeforeInstall = (e: Event) => {
